@@ -1,11 +1,41 @@
 const express = require("express");
-
 const app = express();
-
+const http = require("http");
 const cors = require("cors");
-
+const { Server } = require("socket.io");
 app.use(cors());
 
-app.listen("3002", () => {
-  console.log("server is running on port 3002");
+const server = http.createServer(app);
+
+const io = new Server(server, {
+  cors: {
+    origin: "http://localhost:3000",
+    methods: ["GET", "POST"],
+  },
+});
+
+io.on("connection", (socket) => {
+  console.log(`User Connected with socket id: ${socket.id}`);
+
+  socket.on("join_room", (data) => {
+    socket.join(data);
+    console.log(
+      `User with id ${data.userName}:and socket id ${socket.id} joined room: ${data.room}`
+    );
+  });
+  socket.on("is_auth", (data) => {
+    // socket.join(socket.id);
+    socket.join(data);
+    console.log(
+      `user ${data.userName} is auth :and socket id ${socket.id} joined room: ${data.room}`
+    );
+  });
+
+  socket.on("end", function () {
+    socket.disconnect();
+  });
+});
+
+server.listen(3001, () => {
+  console.log("SERVER RUNNING");
 });

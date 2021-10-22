@@ -1,21 +1,26 @@
 import React, { useState, useEffect } from "react";
 
-const Register = () => {
-  const [room, setRoom] = useState("");
-  const [userName, setUserName] = useState("");
-
+const Register = ({
+  loggedIn,
+  setLoggedIn,
+  userName,
+  setUserName,
+  room,
+  setRoom,
+  connectToRoom,
+}) => {
   function handleSelectChange(event) {
-    event.preventDefault();
     //setSelectedClient(event.target.value);
     setUserName(event.target.value);
   }
   function handleSelectTeamChange(event) {
-    event.preventDefault();
     // setSelectedTeam(event.target.value);
     setRoom(event.target.value);
   }
+
   return (
     <div className="logIn">
+      <p className="text-primary"> {JSON.stringify(loggedIn)}</p>
       <div className="inputs">
         <select
           className="form-select form-select-lg mb-3"
@@ -43,7 +48,6 @@ const Register = () => {
         <p className="text-primary"> {JSON.stringify(room)}</p>
       </div>
       <button
-        type="submit"
         className="btn btn-block btn-primary mt-3"
         disabled={
           !userName ||
@@ -51,6 +55,7 @@ const Register = () => {
           userName === "Select player" ||
           room === "Select team"
         }
+        onclick={connectToRoom}
       >
         {"Submit"}
       </button>
