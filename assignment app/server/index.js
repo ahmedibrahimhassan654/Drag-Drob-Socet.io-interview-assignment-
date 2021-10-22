@@ -30,7 +30,11 @@ io.on("connection", (socket) => {
       `user ${data.userName} is auth :and socket id ${socket.id} joined room: ${data.room}`
     );
   });
-
+  socket.on("logout", (data) => {
+    // socket.join(socket.id);
+    socket.join(data);
+    console.log(`user ${data.userName} is logedout from room  ${data.room}`);
+  });
   socket.on("end", function () {
     socket.disconnect();
   });

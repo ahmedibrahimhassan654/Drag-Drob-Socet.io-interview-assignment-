@@ -2,8 +2,7 @@ import React, { useState, useEffect } from "react";
 
 import io from "socket.io-client";
 import "./App.css";
-import MainPage from "./component/mainpage/MainPage";
-import Register from "./component/Register";
+import MainPage from "./MainPage";
 
 const socket = io.connect("http://localhost:3001");
 
@@ -24,7 +23,6 @@ function App() {
     window.localStorage.setItem("room", JSON.stringify(room));
     if (userName && room) {
       socket.emit("join_room", { userName, room });
-      //     socket.emit("is_auth", { userName, room });
     }
   };
   const isauth = () => {
