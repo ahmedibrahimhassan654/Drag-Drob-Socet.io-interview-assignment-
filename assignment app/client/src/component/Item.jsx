@@ -41,8 +41,32 @@ const item = ({ item, index, moveItem, status }) => {
       isDragging: monitor.isDragging(),
     }),
   });
+  const [show, setShow] = useState(false);
 
-  return <div></div>;
+  const onOpen = () => setShow(true);
+
+  const onClose = () => setShow(false);
+
+  drag(drop(ref));
+
+  return (
+    <Fragment>
+      <div
+        ref={ref}
+        style={{ opacity: isDragging ? 0 : 1 }}
+        className={"item"}
+        onClick={onOpen}
+      >
+        <div
+          className={"color-bar"}
+          style={{ backgroundColor: status.color }}
+        />
+        <p className={"item-title"}>{item.content}</p>
+        <p className={"item-status"}>{item.icon}</p>
+      </div>
+      <Window item={item} onClose={onClose} show={show} />
+    </Fragment>
+  );
 };
 
 export default item;
