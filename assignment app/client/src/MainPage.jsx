@@ -23,10 +23,10 @@ const MainPage = ({
     setRoom("");
   };
   return (
-    <DndProvider backend={HTML5Backend}>
+    <>
       <Header logout={logout} userName={userName} room={room} />
       <Homepage />
-    </DndProvider>
+    </>
   );
 };
 
